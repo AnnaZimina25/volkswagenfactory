@@ -12,7 +12,7 @@ public class SupplyGenerator {
         List<Detail> detailsList = new ArrayList<>();
         int detailsCount = (int) (Math.random() * maxSupplyingDetailsCount);
 
-        for (int i = 0; i < maxSupplyingDetailsCount; i++) {
+        for (int i = 0; i < detailsCount; i++) {
             detailsList.add(generateDetail());
         }
         

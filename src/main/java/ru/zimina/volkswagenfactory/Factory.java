@@ -2,23 +2,13 @@ package ru.zimina.volkswagenfactory;
 
 public class Factory {
 
-    static long countOfСreatedCars = 1_000_000;
+    private static long countOfСreatedCars = 1_000_000;
 
-    public static Polo createPolo() {
-        return (Polo) createCar(DetailModel.POLO);
-    }
-
-    public static Jetta createJetta() {
-
-        return (Jetta) createCar(DetailModel.JETTA);
-
-    }
-
-    private static Car createCar(DetailModel model) {
+    public static Car createCar(DetailModel model) {
         Car car = null;
         try {
             long vinNumber = (long)(Math.random() * countOfСreatedCars++);
-            car = new Car(getCarBody(model), getEngine(model), getChassis(model), vinNumber);
+            car = new Car(getCarBody(model), getEngine(model), getChassis(model), vinNumber, model);
             return car;
 
         } catch (DetailException e) {
@@ -79,7 +69,7 @@ public class Factory {
         }
         if (chassis == null) {
             throw new DetailException(String
-                    .format("Деталь двигатель для модели %s отсутствует на складе!", model.name()));
+                    .format("Деталь шасси для модели %s отсутствует на складе!", model.name()));
         }
         return chassis;
     }

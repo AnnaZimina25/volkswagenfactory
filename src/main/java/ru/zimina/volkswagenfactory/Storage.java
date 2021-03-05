@@ -1,14 +1,16 @@
 package ru.zimina.volkswagenfactory;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static ru.zimina.volkswagenfactory.SupplyGenerator.generateSupply;
 
 public class Storage {
 
-    static List<CarBody> carBodyList;
-    static List<Engine> engineList;
-    static List<Chassis> chassisList;
+    static List<CarBody> carBodyList = new LinkedList<>();
+    static List<Engine> engineList = new LinkedList<>();
+    static List<Chassis> chassisList = new LinkedList<>();
 
     public static void acceptSupply() throws DetailException {
 
