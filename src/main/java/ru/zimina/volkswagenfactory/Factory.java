@@ -1,80 +1,105 @@
 package ru.zimina.volkswagenfactory;
 
+import java.util.List;
+
+import static ru.zimina.volkswagenfactory.Main.logger;
+
 public class Factory {
 
     private static long countOfСreatedCars = 1_000_000;
 
-    public static Car createCar(DetailModel model) {
-        Car car = null;
-        try {
-            long vinNumber = (long)(Math.random() * countOfСreatedCars++);
-            car = new Car(getCarBody(model), getEngine(model), getChassis(model), vinNumber, model);
-            return car;
+    public static Car createJetta() throws DetailException, NullPointerException {
+        DetailModel model = DetailModel.JETTA;
+        long vinNumber = (long)(Math.random() * countOfСreatedCars++);
+        Jetta jetta = new Jetta(getCarBody(model), getEngine(model), getChassis(model), vinNumber);
 
-        } catch (DetailException e) {
-            System.err.println("Ошибка при сборке машины! " + e.getMessage());
+        if (jetta == null) {
+            logger.warn("Из метода Factory.createJetta() проброшено исключение NullPointerException ");
+            throw new NullPointerException("Ошибка при сборке автомобиля модели" + model.name());
+        } else {
+            logger.info("Метод Factory.createJetta() отработал корректно");
         }
 
-        return car;
+        return jetta;
+    }
+
+    public static Polo createPolo() throws DetailException, NullPointerException {
+
+        DetailModel model = DetailModel.POLO;
+        long vinNumber = (long)(Math.random() * countOfСreatedCars++);
+        Polo polo = new Polo(getCarBody(model), getEngine(model), getChassis(model), vinNumber);
+
+        if (polo == null) {
+            logger.warn("Из метода Factory.createPolo() проброшено исключение NullPointerException ");
+            throw new NullPointerException("Ошибка при сборке автомобиля модели" + model.name());
+        } else {
+            logger.info("Метод Factory.createPolo() отработал корректно");
+        }
+
+        return polo;
     }
 
     private static CarBody getCarBody(DetailModel model) throws DetailException {
-        CarBody body = null;
-        for (int i = 0; i < Storage.carBodyList.size();) {
-            CarBody storageCarBody = Storage.carBodyList.get(i);
-            if (storageCarBody.model == model) {
-                body = storageCarBody;
-                Storage.carBodyList.remove(i);
-                break;
-            } else {
-                i ++;
-            }
+
+        CarBody bodyResult = null;
+        Detail body = getDetail(model, Storage.carBodyList, "кузов");
+
+        if (body instanceof CarBody) {
+            Storage.carBodyList.remove(body);
+            bodyResult = (CarBody) body;
+            logger.info("Метод Factory.getCarBody() отработал корректно");
+        } else {
+            logger.debug("Метод Factory.getCarBody() вернул null");
         }
-        if (body == null) {
-            throw new DetailException(String.format("Деталь кузов для модели %s отсутствует на складе!", model.name()));
-        }
-        return body;
+
+        return bodyResult;
     }
 
     private static Engine getEngine(DetailModel model) throws DetailException {
-        Engine engine = null;
-        for (int i = 0; i < Storage.engineList.size();) {
-            Engine storageEngine = Storage.engineList.get(i);
-            if (storageEngine.model == model) {
-                engine = storageEngine;
-                Storage.carBodyList.remove(i);
-                break;
-            } else {
-                i ++;
-            }
+        Engine resultEngine = null;
+        Detail engine  = getDetail(model, Storage.engineList, "двигатель");
+
+        if (engine instanceof Engine) {
+            Storage.engineList.remove(engine);
+            resultEngine = (Engine) engine;
+            logger.info("Метод Factory.getEngine() отработал корректно");
+        } else {
+            logger.debug("Метод Factory.getEngine() вернул null");
         }
-        if (engine == null) {
-            throw new DetailException(String
-                    .format("Деталь двигатель для модели %s отсутствует на складе!", model.name()));
-        }
-        return engine;
+
+        return resultEngine;
     }
 
     private static Chassis getChassis(DetailModel model) throws DetailException {
-        Chassis chassis = null;
-        for (int i = 0; i < Storage.chassisList.size();) {
-            Chassis storageChassies = Storage.chassisList.get(i);
-            if (storageChassies.model == model) {
-                chassis = storageChassies;
-                Storage.carBodyList.remove(i);
-                break;
-            } else {
-                i ++;
-            }
+        Chassis resultChassis = null;
+        Detail chassis  = getDetail(model, Storage.chassisList, "двигатель");
+
+        if (chassis instanceof Chassis) {
+            Storage.chassisList.remove(chassis);
+            resultChassis = (Chassis) chassis;
+            logger.info("Метод Factory.getChassis() отработал корректно");
+        } else {
+        logger.debug("Метод Factory.getChassis() вернул null");
         }
-        if (chassis == null) {
-            throw new DetailException(String
-                    .format("Деталь шасси для модели %s отсутствует на складе!", model.name()));
-        }
-        return chassis;
+
+        return resultChassis;
     }
 
-
-
+    private static Detail getDetail(DetailModel model, List<Detail> detailsFromStorage, String detailName) throws DetailException {
+        Detail detail = null;
+        if (!detailsFromStorage.isEmpty()) {
+            for (int i = 0; i < detailsFromStorage.size(); i++ ) {
+                Detail detailFromStorage = detailsFromStorage.get(i);
+                if (detailFromStorage.model == model) {
+                    detail = detailFromStorage;
+                    break;
+                }
+            }
+        } else if (detailsFromStorage.isEmpty() || detail == null) {
+            logger.warn("Из метода Factory.getDetail проброшено исключение DetailException");
+            throw new DetailException(String.format("Деталь %s для модели %s отсутствует на складе!", detailName, model.name()));
+        }
+        return detail;
+    }
 
 }
