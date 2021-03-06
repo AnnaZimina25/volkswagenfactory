@@ -41,12 +41,13 @@ public class Factory {
 
     private static CarBody getCarBody(DetailModel model) throws DetailException {
 
+        // Получаем деталь кузов заданного типа модели из списка кузовов на складе
         CarBody bodyResult = null;
         Detail body = getDetail(model, Storage.carBodyList, "кузов");
 
         if (body instanceof CarBody) {
             Storage.carBodyList.remove(body);
-            bodyResult = (CarBody) body;
+            bodyResult = (CarBody) body; // если найденная деталь удовлетворяет требованиям, забираем её со склада
             logger.info("Метод Factory.getCarBody() отработал корректно");
         } else {
             logger.debug("Метод Factory.getCarBody() вернул null");
@@ -56,12 +57,14 @@ public class Factory {
     }
 
     private static Engine getEngine(DetailModel model) throws DetailException {
+
+        // Получаем деталь двигатель заданного типа модели из списка двигателей на складе
         Engine resultEngine = null;
         Detail engine  = getDetail(model, Storage.engineList, "двигатель");
 
         if (engine instanceof Engine) {
             Storage.engineList.remove(engine);
-            resultEngine = (Engine) engine;
+            resultEngine = (Engine) engine; // если найденная деталь удовлетворяет требованиям, забираем её со склада
             logger.info("Метод Factory.getEngine() отработал корректно");
         } else {
             logger.debug("Метод Factory.getEngine() вернул null");
@@ -71,11 +74,13 @@ public class Factory {
     }
 
     private static Chassis getChassis(DetailModel model) throws DetailException {
+
+        // Получаем деталь шасси заданного типа модели из списка шасси на складе
         Chassis resultChassis = null;
         Detail chassis  = getDetail(model, Storage.chassisList, "двигатель");
 
         if (chassis instanceof Chassis) {
-            Storage.chassisList.remove(chassis);
+            Storage.chassisList.remove(chassis); // если найденная деталь удовлетворяет требованиям, забираем её со склада
             resultChassis = (Chassis) chassis;
             logger.info("Метод Factory.getChassis() отработал корректно");
         } else {
@@ -86,6 +91,8 @@ public class Factory {
     }
 
     private static Detail getDetail(DetailModel model, List<Detail> detailsFromStorage, String detailName) throws DetailException {
+
+        // Получаем объект Detail с заданным типом модели из заданного списка деталей:
         Detail detail = null;
         if (!detailsFromStorage.isEmpty()) {
             for (int i = 0; i < detailsFromStorage.size(); i++ ) {

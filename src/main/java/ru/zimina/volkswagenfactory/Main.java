@@ -20,7 +20,7 @@ public class Main {
         // Создаем 2 вида машин и выводим их модели на экран
         try {
            Car poloCar = Factory.createPolo();
-            System.out.println(poloCar.toString());
+           System.out.println(poloCar.toString());
            poloCar.printModel();
 
         } catch (DetailException e) {
