@@ -12,7 +12,7 @@ public class Jetta extends Car {
         this.engine = engine;
         this.chassis = chassis;
         this.vinNumber = vinNomber;
-        logger.info("Создан объект класса Jetta");
+        logger.trace("Создан объект класса Jetta");
     }
 
     @Override

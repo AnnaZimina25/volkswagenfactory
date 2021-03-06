@@ -11,7 +11,7 @@ public class Polo extends Car {
         this.engine = engine;
         this.chassis = chassis;
         this.vinNumber = vinNumber;
-        logger.info("Создан объект класса Polo");
+        logger.trace("Создан объект класса Polo");
     }
 
     @Override

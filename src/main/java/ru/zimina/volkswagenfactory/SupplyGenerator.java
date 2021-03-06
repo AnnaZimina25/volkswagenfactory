@@ -20,7 +20,7 @@ public class SupplyGenerator {
         }
 
         if (!detailsList.isEmpty()) {
-            logger.trace("Метод SupplyGenerator.generateSupply() сформировал поставку");
+            logger.info("Метод SupplyGenerator.generateSupply() сформировал поставку");
         } else {
             logger.debug("Метод SupplyGenerator.generateSupply() сформировал пустую поставку");
         }

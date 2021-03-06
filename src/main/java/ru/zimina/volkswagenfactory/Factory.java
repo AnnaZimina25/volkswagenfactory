@@ -6,11 +6,11 @@ import static ru.zimina.volkswagenfactory.Main.logger;
 
 public class Factory {
 
-    private static long countOfСreatedCars = 1_000_000;
+    private static long countOfCreatedCars = 1_000_000;
 
     public static Car createJetta() throws DetailException, NullPointerException {
         DetailModel model = DetailModel.JETTA;
-        long vinNumber = (long)(Math.random() * countOfСreatedCars++);
+        long vinNumber = (long)(Math.random() * countOfCreatedCars++);
         Jetta jetta = new Jetta(getCarBody(model), getEngine(model), getChassis(model), vinNumber);
 
         if (jetta == null) {
@@ -26,7 +26,7 @@ public class Factory {
     public static Polo createPolo() throws DetailException, NullPointerException {
 
         DetailModel model = DetailModel.POLO;
-        long vinNumber = (long)(Math.random() * countOfСreatedCars++);
+        long vinNumber = (long)(Math.random() * countOfCreatedCars++);
         Polo polo = new Polo(getCarBody(model), getEngine(model), getChassis(model), vinNumber);
 
         if (polo == null) {

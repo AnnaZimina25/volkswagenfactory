@@ -15,8 +15,14 @@ public class Storage {
 
     public static void acceptSupply() throws DetailException {
 
-        List<Detail> suppliedDetails = generateSupply();
+        List<Detail> suppliedDetails = new LinkedList<>();
 
+        // Формируем поставку до тех пор, пока она не перестанет быть пустым списком:
+        while (suppliedDetails.isEmpty()) {
+            suppliedDetails = generateSupply();
+        }
+
+        // Проходимся по списку полученных деталей в поставке и сортируем их по спискам склада по типу детали:
         for (Detail detail : suppliedDetails) {
             if (detail instanceof CarBody) {
                 carBodyList.add(detail);
