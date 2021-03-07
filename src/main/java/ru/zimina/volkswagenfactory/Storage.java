@@ -28,7 +28,7 @@ public class Storage {
                 carBodyList.add(detail);
                 logger.info("В список кузовов на складе добавлен новый объект из поставки");
 
-            } else if (detail instanceof Engine ) {
+            } else if (detail instanceof Engine) {
                 engineList.add(detail);
                 logger.info("В список двигателей на складе добавлен новый объект из поставки");
 
@@ -37,11 +37,8 @@ public class Storage {
                 logger.info("В список шасси на складе добавлен новый объект из поставки");
             } else {
                 logger.warn("Метод Storage.acceptSupply() выбросил исключение DetailException(Деталь не опознана)");
-                throw new DetailException ("Деталь не опознана!");
+                throw new DetailException("Деталь не опознана!");
             }
         }
-
-
-
     }
 }
