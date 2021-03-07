@@ -1,6 +1,5 @@
 package ru.zimina.volkswagenfactory;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class SupplyGenerator {
         
     }
    
-    private static Detail generateDetail() {
+     static Detail generateDetail() {
         
        // Создаем детали с произвольным типом модели (либо JETTA либо POLO):
         CarBody randomBody = new CarBody(generateDetailModel());
@@ -41,15 +40,15 @@ public class SupplyGenerator {
         Detail[] details = {randomBody, randomEngine,randomChassis};
 
         // Возвращаем произвольное значение из сформированного массива:
-        return (Detail) generateRandomValue(details);
+        return (Detail) getRandomElement(details);
     }
     
-    private static DetailModel generateDetailModel() {
+    static DetailModel generateDetailModel() {
         // Вовращает случайное значение из массива деталей
-        return (DetailModel) generateRandomValue(DetailModel.values());
+        return (DetailModel) getRandomElement(DetailModel.values());
     }
     
-    private static Object generateRandomValue(Object[] objectsArray) {
+    private static Object getRandomElement(Object[] objectsArray) {
         int maxValue = objectsArray.length;
         int index = (int)(Math.random() * maxValue);
 

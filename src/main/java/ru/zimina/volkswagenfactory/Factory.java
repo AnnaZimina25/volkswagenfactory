@@ -33,7 +33,7 @@ public class Factory {
             logger.warn("Из метода Factory.createPolo() проброшено исключение NullPointerException ");
             throw new NullPointerException("Ошибка при сборке автомобиля модели" + model.name());
         } else {
-            logger.info("Метод Factory.createPolo() отработал корректно");
+            logger.debug("Метод Factory.createPolo() отработал корректно");
         }
 
         return polo;
@@ -48,9 +48,10 @@ public class Factory {
         if (body instanceof CarBody) {
             Storage.carBodyList.remove(body);
             bodyResult = (CarBody) body; // если найденная деталь удовлетворяет требованиям, забираем её со склада
-            logger.info("Метод Factory.getCarBody() отработал корректно");
+            logger.debug("Метод Factory.getCarBody() отработал корректно");
         } else {
             logger.debug("Метод Factory.getCarBody() вернул null");
+
         }
 
         return bodyResult;

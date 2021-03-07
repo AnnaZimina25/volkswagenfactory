@@ -26,15 +26,15 @@ public class Storage {
         for (Detail detail : suppliedDetails) {
             if (detail instanceof CarBody) {
                 carBodyList.add(detail);
-                logger.trace("В список список кузовов на складе добавлен новый объект из поставки");
+                logger.info("В список кузовов на складе добавлен новый объект из поставки");
 
             } else if (detail instanceof Engine ) {
                 engineList.add(detail);
-                logger.trace("В список список двигателей на складе добавлен новый объект из поставки");
+                logger.info("В список двигателей на складе добавлен новый объект из поставки");
 
             } else if (detail instanceof Chassis) {
                 chassisList.add(detail);
-                logger.trace("В список шасси на складе добавлен новый объект из поставки");
+                logger.info("В список шасси на складе добавлен новый объект из поставки");
             } else {
                 logger.warn("Метод Storage.acceptSupply() выбросил исключение DetailException(Деталь не опознана)");
                 throw new DetailException ("Деталь не опознана!");
